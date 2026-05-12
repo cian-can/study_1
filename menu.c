@@ -74,6 +74,18 @@ void menu_printf_sign_in(){
     printf("请输入您的取号顺序：");
     int number;
     scanf("%d", &number);
+    // 添加功能：判断输入的取号顺序是否存在，如果不存在则提示用户重新输入
+        int found = 0;
+    for (int i = 0; i < ON_LINE_SIZE; i++) {
+        if (on_line_queue[i].number == number) {
+            found = 1;
+            break;
+        }
+    }
+    if (!found) {
+        printf("没有找到对应的取号顺序，请重新输入！\n");
+        return;
+    }
     printf("需要复诊请输入1，不需要复诊请输入0：");
     int sub;
     scanf("%d", &sub);
