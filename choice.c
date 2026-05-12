@@ -6,6 +6,7 @@ void choice(){
     int choice;
     while (1) {
         menu_printf_all();
+        init_admission_queue();
         printf("请输入您的选择：");
         scanf("%d", &choice);
         switch (choice) {

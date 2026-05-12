@@ -14,9 +14,21 @@ void menu_printf_on_line(){
     printf("请输入患者姓名：");
     char name[50];
     scanf("%s", name);
+    printf("需要查看科室信息请输入1，直接输入科室名字请输入2：");
+    int choice;
+    scanf("%d", &choice);
+    if(choice == 1)
+    {
+        print_all_admissions();
+    }
     printf("请输入就诊科室：");
     char admission[50];
     scanf("%s", admission);
+    if(find_admission(admission) == -1)
+    {
+        printf("没有找到对应科室，请重新输入！\n");
+        return;
+    }
     time_t now = time(NULL);
     struct tm *tm_now = localtime(&now);
     int number = 0;
