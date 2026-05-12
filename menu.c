@@ -68,3 +68,16 @@ else if(number >10 ){
     printf("预约成功！您的取号顺序是：%d\n", number + 1);
 }
 
+//签到选项
+void menu_printf_sign_in(){
+    printf("签到界面\n");
+    printf("请输入您的取号顺序：");
+    int number;
+    scanf("%d", &number);
+    printf("需要复诊请输入1，不需要复诊请输入0：");
+    int sub;
+    scanf("%d", &sub);
+    sign_in_on_line(number,sub);
+    printf("签到成功！请等待叫号！\n");
+    //添加一个功能：每次签到都将患者加到排队队列中
+}

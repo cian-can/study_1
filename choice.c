@@ -18,6 +18,7 @@ void choice(){
                 break;
             case 3:
                 //签到界面
+                menu_printf_sign_in();
                 break;
             case 4:
                 printf("感谢使用医院挂号系统！再见！\n");
