@@ -55,6 +55,7 @@ int find_empty_on_line() ;//查看数组未编号位置
 //menu.c
 void menu_printf_all();//打印开始选择界面
 void menu_printf_on_line();//打印线上预约界面
+void menu_printf_sign_in();//打印签到界面
 void choice();//选择界面
 
 //admissions.c
