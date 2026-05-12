@@ -52,3 +52,25 @@ int find_admission(char *admission) {
     }
     return -1; //没有找到对应科室
 }
+//添加患者信息到对应科室的链表中
+void add_admission_queue(Person *person) {
+    //还要修改，等复诊功能完善后再修改
+    int index = find_admission(person->admission);
+    if (index == -1) {
+        printf("没有找到对应科室，无法添加患者信息！\n");
+        return;
+    }
+    Admission *admission = admission_queue[index];
+    if (admission->count >= admission_number_per_day) {
+        printf("该科室预约已满，无法添加患者信息！\n");
+        return;
+    }
+    if (admission->head == NULL) {
+        admission->head = person;
+        admission->tail = person;
+    } else {
+        admission->tail->next = person;
+        admission->tail = person;
+    }
+    admission->count++;
+}
