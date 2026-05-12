@@ -47,6 +47,8 @@ typedef struct admission
 void init_on_line_queue();//初始化线上预约挂号数组
 void add_on_line(int number, char *name, char *admission, char *time);//添加线上预约挂号信息
 void sign_in_on_line(int number,int sub);//签到线上预约挂号
+void creat(int *ans, int root, int len);//建堆
+void heap_sort_sign_up_queue(Person *sign_up_queue, int size);//堆排序
 
 void menu_printf_all();//打印开始选择界面
 void menu_printf_on_line();//打印线上预约界面
@@ -56,6 +58,7 @@ int find_empty_on_line() ;//查看数组未编号位置
 void print_all_admissions() ;//打印就诊科室
 void init_admission_queue() ;//初始化就诊科室预约显示
 int find_admission(char *admission) ;//查看有没有对应科室
+
 
 // 全局变量声明（用extern）
 extern on_line on_line_queue[ON_LINE_SIZE];//线上预约挂号数组
