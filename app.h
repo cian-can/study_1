@@ -56,6 +56,7 @@ int find_empty_on_line() ;//查看数组未编号位置
 void menu_printf_all();//打印开始选择界面
 void menu_printf_on_line();//打印线上预约界面
 void menu_printf_sign_in();//打印签到界面
+void menu_printf_off_line();//打印线下排队界面
 void choice();//选择界面
 
 //admissions.c
@@ -63,6 +64,11 @@ void print_all_admissions() ;//打印就诊科室
 void init_admission_queue() ;//初始化就诊科室预约显示
 int find_admission(char *admission) ;//查看有没有对应科室
 void add_admission_queue(Person *person) ;//添加患者信息到对应科室的链表中
+
+//off_line.c
+void merge_queues();//线下排队和签到队列合并
+void init_off_line_queue() ;//初始化线下排队队列
+void add_off_line(int number, char *name, char *admission, int sub) ;//线下排队挂号
 
 
 // 全局变量声明（用extern）
@@ -72,7 +78,7 @@ extern int sign_up_front, sign_up_rear;
 extern Person  off_line_queue[OFF_LINE_SIZE];//线下排队队列
 extern int off_line_front, off_line_rear;
 extern Admission *admission_queue[ADMISSION_SIZE];//就诊科室预约显示
-extern int admission_front[ADMISSION_SIZE];//就诊科室预约队头
-extern int admission_rear[ADMISSION_SIZE];//就诊科室预约队尾
+extern Person all_off_line_queue[OFF_LINE_SIZE];//线下排队和签到合并后的队列
+extern int all_off_line_front, all_off_line_rear;//合并后队头和队尾
 
 #endif //APP.H
