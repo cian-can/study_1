@@ -15,12 +15,19 @@ void choice(){
                 break;
             case 2:
                 //线下排队挂号界面
+                menu_printf_off_line();
                 break;
             case 3:
                 //签到界面
                 menu_printf_sign_in();
                 break;
             case 4:
+                //显示总体排队情况
+                break;
+            case 5:
+                //叫号
+                break;
+            case 6:
                 printf("感谢使用医院挂号系统！再见！\n");
                 exit(0);
             default:
