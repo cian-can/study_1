@@ -69,6 +69,7 @@ void add_admission_queue(Person *person) ;//将患者信息添加到对应科室
 void add_pesions_admisssion_queue() ;//将合并后的队列添加到add_admission_queue函数中
 void display_queue_status();//显示总体排队情况
 void call_number();//叫号
+void free_admission_queue() ;//释放就诊科室预约显示的内存
 
 //off_line.c
 void merge_queues();//线下排队和签到队列合并

@@ -115,3 +115,16 @@ void call_number() {
         }
     }
 }
+
+//释放内存
+void free_admission_queue() {
+    for (int i = 0; i < ADMISSION_SIZE; i++) {
+        Person *current = admission_queue[i]->head;
+        while (current != NULL) {
+            Person *temp = current;
+            current = current->next;
+            free(temp);
+        }
+        free(admission_queue[i]);
+    }
+}
