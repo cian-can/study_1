@@ -23,11 +23,14 @@ void choice(){
                 break;
             case 4:
                 //显示总体排队情况
+                printf_overall_queue();
                 break;
             case 5:
                 //叫号
+                menu_printf_call_number();
                 break;
             case 6:
+                free_admission_queue();
                 printf("感谢使用医院挂号系统！再见！\n");
                 exit(0);
             default:
