@@ -33,7 +33,7 @@ void choice(){
             case 4:
                 //显示总体排队情况
                 printf_overall_queue();
-                print_sign_up_queue();
+                // print_sign_up_queue();//测试打印签到队列
                 break;
             case 5:
                 //叫号
