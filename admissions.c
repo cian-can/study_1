@@ -92,3 +92,26 @@ void add_pesions_admisssion_queue(){
         }
     }
 }
+
+//显示总体排队情况
+void display_queue_status() {
+    printf("总体排队情况：\n");
+    for (int i = 0; i < ADMISSION_SIZE; i++) {
+        printf("%s科室：%d人排队，当前叫号顺序：%d\n", admission_queue[i]->name, admission_queue[i]->count, admission_queue[i]->call_number);
+    }
+}
+
+//叫号
+void call_number() {
+    for (int i = 0; i < ADMISSION_SIZE; i++) {
+        if (admission_queue[i]->count > 0) {
+            admission_queue[i]->call_number++;
+            printf("请%s科室的患者，取号顺序为%d的%s前来就诊！\n", admission_queue[i]->name, admission_queue[i]->call_number, admission_queue[i]->head->name);
+            //将叫号的患者从链表中移除
+            Person *temp = admission_queue[i]->head;
+            admission_queue[i]->head = admission_queue[i]->head->next;
+            free(temp);
+            admission_queue[i]->count--;
+        }
+    }
+}
