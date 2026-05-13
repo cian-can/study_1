@@ -53,7 +53,7 @@ void sign_in_on_line(int number, int sub)
 {
     for (int i = 0; i < ON_LINE_SIZE; i++)
     {
-        if (on_line_queue[i].number == number)
+        if (on_line_queue[i].number == number && on_line_queue[i].tag == 0)
         {
             on_line_queue[i].tag = 1; // 签到成功
             // 将签到的患者信息加入签到排队队列
