@@ -59,7 +59,7 @@ void menu_printf_sign_in();//打印签到界面
 void menu_printf_off_line();//打印线下排队界面
 void choice();//选择界面
 void printf_overall_queue();//显示总体排队情况界面
-void call_number();//叫号界面
+void menu_printf_call_number();//叫号界面
 
 //admissions.c
 void print_all_admissions() ;//打印就诊科室
