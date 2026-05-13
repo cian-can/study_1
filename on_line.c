@@ -18,6 +18,17 @@ void init_on_line_queue()
         on_line_queue[i].tag = 0;
     }
 }
+//初始化签到队列
+void init_sign_up_queue() {
+    for (int i = 0; i < ON_LINE_SIZE; i++) {
+        sign_up_queue[i].number = 0;
+        sign_up_queue[i].name = NULL;
+        sign_up_queue[i].admission = NULL;
+        sign_up_queue[i].sub = 0;
+        sign_up_queue[i].if_sub = 0;
+        sign_up_queue[i].next = NULL;
+    }
+}
 
 // 添加线上预约挂号信息
 void add_on_line(int number, char *name, char *admission, char *time)
