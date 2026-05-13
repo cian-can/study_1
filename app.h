@@ -63,7 +63,8 @@ void choice();//选择界面
 void print_all_admissions() ;//打印就诊科室
 void init_admission_queue() ;//初始化就诊科室预约显示
 int find_admission(char *admission) ;//查看有没有对应科室
-void add_admission_queue(Person *person) ;//添加患者信息到对应科室的链表中
+void add_admission_queue(Person *person) ;//将患者信息添加到对应科室的链表中，并且更新预约人数和叫号顺序
+void add_pesions_admisssion_queue() ;//将合并后的队列添加到add_admission_queue函数中s
 
 //off_line.c
 void merge_queues();//线下排队和签到队列合并

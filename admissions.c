@@ -52,10 +52,11 @@ int find_admission(char *admission) {
     }
     return -1; //没有找到对应科室
 }
-//添加患者信息到对应科室的链表中
+
+//将患者信息添加到对应科室的链表中，并且更新预约人数和叫号顺序
 void add_admission_queue(Person *person) {
-    //还要修改，等复诊功能完善后再修改
     int index = find_admission(person->admission);
+    //还要修改，等复诊功能完善后再修改
     if (index == -1) {
         printf("没有找到对应科室，无法添加患者信息！\n");
         return;
@@ -73,4 +74,21 @@ void add_admission_queue(Person *person) {
         admission->tail = person;
     }
     admission->count++;
+    admission->call_number++;
+}
+
+//将合并后的队列添加到add_admission_queue函数中
+void add_pesions_admisssion_queue(){
+    while(1)
+    {
+        if(all_off_line_front != all_off_line_rear) //合并后的队列不为空
+        {
+            add_admission_queue(&all_off_line_queue[all_off_line_front]);
+            all_off_line_front = (all_off_line_front + 1) % OFF_LINE_SIZE;
+        }
+        else
+        {
+            break; //合并后的队列为空，添加完成
+        }
+    }
 }
