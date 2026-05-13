@@ -31,6 +31,13 @@ void menu_printf_on_line(){
         if(find_admission(admission) == -1)
         {
             printf("没有找到对应科室，请重新输入！\n");
+            printf("是否需要查看科室信息？需要请输入1，不需要请输入2：");
+            int choice;
+            scanf("%d", &choice);
+            if(choice == 1)
+            {
+                print_all_admissions();
+            }
             continue;
         }
         else
@@ -98,6 +105,13 @@ void menu_printf_off_line(){
         if(find_admission(admission) == -1)
         {
             printf("没有找到对应科室，请重新输入！\n");
+            printf("是否需要查看科室信息？需要请输入1，不需要请输入2：");
+            int choice;
+            scanf("%d", &choice);
+            if(choice == 1)
+            {
+                print_all_admissions();
+            }
             continue;
         }
         else
