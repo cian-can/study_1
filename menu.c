@@ -147,7 +147,10 @@ void menu_printf_sign_in(){
     printf("需要复诊请输入1，不需要复诊请输入0：");
     int sub;
     scanf("%d", &sub);
-    sign_in_on_line(number,sub);
+    if(!sign_in_on_line(number,sub)) {
+        printf("你已经签到过了！\n");
+        return;
+    }
     printf("签到成功！请等待叫号！\n");
     //添加一个功能：每次签到都将患者加到排队队列中
 }
