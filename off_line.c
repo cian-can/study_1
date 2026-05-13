@@ -21,6 +21,18 @@ void init_off_line_queue() {
     }
 }
 
+//初始化合并队列
+void init_all_off_line_queue() {
+    for (int i = 0; i < OFF_LINE_SIZE; i++) {
+        all_off_line_queue[i].number = 0;
+        all_off_line_queue[i].name = NULL;
+        all_off_line_queue[i].admission = NULL;
+        all_off_line_queue[i].sub = 0;
+        all_off_line_queue[i].if_sub = 0;
+        all_off_line_queue[i].next = NULL;
+    }
+}
+
 //线下排队挂号
 void add_off_line(int number, char *name, char *admission, int sub) {
 

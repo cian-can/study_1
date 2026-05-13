@@ -10,7 +10,7 @@
 
 #define ON_LINE_SIZE 20  //线上预约挂号数量
 #define OFF_LINE_SIZE 40 //线下排队数量
-#define ADMISSION_SIZE 20 //就诊科室数量
+#define ADMISSION_SIZE 10 //就诊科室数量
 #define admission_number_per_day 20 //每天每个科室的预约数量
 
 //定义结构体
@@ -47,10 +47,11 @@ typedef struct admission
 //on_line.c
 void init_on_line_queue();//初始化线上预约挂号数组
 void add_on_line(int number, char *name, char *admission, char *time);//添加线上预约挂号信息
-void sign_in_on_line(int number,int sub);//签到线上预约挂号
+bool sign_in_on_line(int number, int sub);//签到线上预约挂号
 void creat(int *ans, int root, int len);//建堆
 void heap_sort_sign_up_queue(Person *sign_up_queue, int size);//堆排序
 int find_empty_on_line() ;//查看数组未编号位置
+void init_sign_up_queue() ;//初始化签到排队队列
 
 //menu.c
 void menu_printf_all();//打印开始选择界面
@@ -59,7 +60,7 @@ void menu_printf_sign_in();//打印签到界面
 void menu_printf_off_line();//打印线下排队界面
 void choice();//选择界面
 void printf_overall_queue();//显示总体排队情况界面
-void menu_printf_call_number();//叫号界面
+void menu_printf_call_number();//打印叫号界面
 
 //admissions.c
 void print_all_admissions() ;//打印就诊科室
@@ -74,7 +75,13 @@ void free_admission_queue() ;//释放就诊科室预约显示的内存
 //off_line.c
 void merge_queues();//线下排队和签到队列合并
 void init_off_line_queue() ;//初始化线下排队队列
+void init_all_off_line_queue() ;//初始化合并队列
 void add_off_line(int number, char *name, char *admission, int sub) ;//线下排队挂号
+
+//test.c
+void test_add_on_line() ;//测试函数
+void test_sign_in_on_line() ;//测试函数
+void print_sign_up_queue() ;//打印签到队列
 
 
 // 全局变量声明（用extern）

@@ -31,6 +31,13 @@ void menu_printf_on_line(){
         if(find_admission(admission) == -1)
         {
             printf("没有找到对应科室，请重新输入！\n");
+            printf("是否需要查看科室信息？需要请输入1，不需要请输入2：");
+            int choice;
+            scanf("%d", &choice);
+            if(choice == 1)
+            {
+                print_all_admissions();
+            }
             continue;
         }
         else
@@ -98,6 +105,13 @@ void menu_printf_off_line(){
         if(find_admission(admission) == -1)
         {
             printf("没有找到对应科室，请重新输入！\n");
+            printf("是否需要查看科室信息？需要请输入1，不需要请输入2：");
+            int choice;
+            scanf("%d", &choice);
+            if(choice == 1)
+            {
+                print_all_admissions();
+            }
             continue;
         }
         else
@@ -133,7 +147,10 @@ void menu_printf_sign_in(){
     printf("需要复诊请输入1，不需要复诊请输入0：");
     int sub;
     scanf("%d", &sub);
-    sign_in_on_line(number,sub);
+    if(!sign_in_on_line(number,sub)) {
+        printf("你已经签到过了！\n");
+        return;
+    }
     printf("签到成功！请等待叫号！\n");
     //添加一个功能：每次签到都将患者加到排队队列中
 }
