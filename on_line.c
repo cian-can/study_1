@@ -49,12 +49,15 @@ int find_empty_on_line()
     return -1; // 没有空位
 }
 // 签到线上预约挂号
-void sign_in_on_line(int number, int sub)
+bool sign_in_on_line(int number, int sub)
 {
     for (int i = 0; i < ON_LINE_SIZE; i++)
     {
-        if (on_line_queue[i].number == number && on_line_queue[i].tag == 0)
+        if (on_line_queue[i].number == number)
         {
+            if(on_line_queue[i].tag == 1) {
+                return false; // 已经签到过了
+            }
             on_line_queue[i].tag = 1; // 签到成功
             // 将签到的患者信息加入签到排队队列
             sign_up_queue[sign_up_rear].number = on_line_queue[i].number;
@@ -68,6 +71,7 @@ void sign_in_on_line(int number, int sub)
         }
     }
     heap_sort_sign_up_queue(sign_up_queue, (sign_up_rear - sign_up_front + ON_LINE_SIZE) % ON_LINE_SIZE);//每次签到都重新排序
+    return true; // 签到成功
 }
 
 //建堆
