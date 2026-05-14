@@ -161,17 +161,16 @@ void printf_overall_queue(){
     printf("\n===========总体排队情况================\n");
     //显示线下排队和签到合并后的队列
     merge_queues();
-    // heap_sort_sign_up_queue(all_off_line_queue, (all_off_line_rear - all_off_line_front + OFF_LINE_SIZE) % OFF_LINE_SIZE);//每次显示总体排队情况都重新排序
-    printf("当前排队人数：%d\n", (all_off_line_rear - all_off_line_front + OFF_LINE_SIZE) % OFF_LINE_SIZE);
+     int len = all_off_line_rear;
+    printf("当前排队人数：%d\n", len);
     printf("=================排队详情：===============\n");
     int index = all_off_line_front;
-    while (index != all_off_line_rear) {
-        printf("取号顺序：%d，姓名：%s，科室：%s，是否需要复诊：%s\n",
-               all_off_line_queue[index].number,
-               all_off_line_queue[index].name,
-               all_off_line_queue[index].admission,
-               all_off_line_queue[index].sub ? "是" : "否");
-        index = (index + 1) % OFF_LINE_SIZE;
+    for (int i = 0; i < len; i++) {
+        printf("取号顺序：%d，姓名：%s，科室：%s，是否复诊：%s\n",
+               all_off_line_queue[i].number,
+               all_off_line_queue[i].name,
+               all_off_line_queue[i].admission,
+               all_off_line_queue[i].sub ? "是" : "否");
     }
 }
 

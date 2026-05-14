@@ -48,7 +48,7 @@ typedef struct admission
 void init_on_line_queue();//初始化线上预约挂号数组
 void add_on_line(int number, char *name, char *admission, char *time);//添加线上预约挂号信息
 bool sign_in_on_line(int number, int sub);//签到线上预约挂号
-void creat(int *ans, int root, int len);//建堆
+void creat( Person *queue, int len , int root);//建堆
 void heap_sort_sign_up_queue(Person *sign_up_queue, int size);//堆排序
 int find_empty_on_line() ;//查看数组未编号位置
 void init_sign_up_queue() ;//初始化签到排队队列
