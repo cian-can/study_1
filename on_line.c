@@ -125,6 +125,7 @@ void creat(Person *queue, int len, int root)
     queue[child / 2] = temp;
 }
 
+
 // 堆排序将签到队列按照大小顺序排序
 void heap_sort_sign_up_queue(Person *sign_up_queue, int size)
 {
