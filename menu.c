@@ -160,6 +160,7 @@ void printf_overall_queue(){
     printf("\n===========总体排队情况================\n");
     //显示线下排队和签到合并后的队列
     merge_queues();
+    // heap_sort_sign_up_queue(all_off_line_queue, (all_off_line_rear - all_off_line_front + OFF_LINE_SIZE) % OFF_LINE_SIZE);//每次显示总体排队情况都重新排序
     printf("当前排队人数：%d\n", (all_off_line_rear - all_off_line_front + OFF_LINE_SIZE) % OFF_LINE_SIZE);
     printf("排队详情：\n");
     int index = all_off_line_front;

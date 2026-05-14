@@ -10,7 +10,7 @@
 
 #define ON_LINE_SIZE 20  //线上预约挂号数量
 #define OFF_LINE_SIZE 40 //线下排队数量
-#define ADMISSION_SIZE 10 //就诊科室数量
+#define ADMISSION_SIZE 20 //就诊科室数量
 #define admission_number_per_day 20 //每天每个科室的预约数量
 
 //定义结构体
