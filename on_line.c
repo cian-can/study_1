@@ -81,42 +81,60 @@ bool sign_in_on_line(int number, int sub)
             break;
         }
     }
-    heap_sort_sign_up_queue(sign_up_queue, (sign_up_rear - sign_up_front + ON_LINE_SIZE) % ON_LINE_SIZE);//每次签到都重新排序
+    //  // 安全排序
+    // int len = (sign_up_rear - sign_up_front + ON_LINE_SIZE) % ON_LINE_SIZE;
+    // if (len <= 0) return true;
+
+    // Person temp[ON_LINE_SIZE];
+    // int idx = sign_up_front;
+    // for (int i = 1; i <= len; i++) {
+    //     temp[i] = sign_up_queue[idx];
+    //     idx = (idx + 1) % ON_LINE_SIZE;
+    // }
+    // heap_sort_sign_up_queue(temp, len);
+
+    // idx = sign_up_front;
+    // for (int i = 1; i <= len; i++) {
+    //     sign_up_queue[idx] = temp[i];
+    //     idx = (idx + 1) % ON_LINE_SIZE;
+    // }
     return true; // 签到成功
 }
 
-//建堆建最小堆
-void creat( Person *queue, int len , int root)
+// 建最大堆
+void creat(Person *queue, int len, int root)
 {
     int child;
     Person temp = queue[root];
-    int child = 2 * root;
+    child = 2 * root;
+
     while (child <= len)
     {
-        if (child < len && queue[child].number > queue[child + 1].number)
-        {
+        // 找更大的孩子
+        if (child < len && queue[child].number < queue[child + 1].number) {
             child++;
         }
-        if (temp.number <= queue[child].number)
-        {
+        // 父节点更大，停止
+        if (temp.number >= queue[child].number) {
             break;
         }
-        queue[child/2] = queue[child];
-        child = 2 * root;
+        // 孩子上浮
+        queue[child / 2] = queue[child];
+        child *= 2;
     }
-    queue[root] = temp;
+    queue[child / 2] = temp;
 }
 
 // 堆排序将签到队列按照大小顺序排序
 void heap_sort_sign_up_queue(Person *sign_up_queue, int size)
 {
-    // 构建最小堆
+    // 构建最大堆
     if(size <= 1) {
         return; // 不需要排序
     }
     for (int i = size / 2; i > 0; i--)
     {
-        creat(sign_up_queue, i, size);
+        creat(sign_up_queue, size, i);
     }
     for (int i = size; i > 1; i--)
     {
@@ -124,6 +142,6 @@ void heap_sort_sign_up_queue(Person *sign_up_queue, int size)
         Person temp = sign_up_queue[1];
         sign_up_queue[1] = sign_up_queue[i];
         sign_up_queue[i] = temp;
-        creat(sign_up_queue, 1, i - 1);
+        creat(sign_up_queue, i-1, 1);
     }
 }

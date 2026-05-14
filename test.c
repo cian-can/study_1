@@ -14,23 +14,14 @@ void test_add_on_line() {
 }
 //测试签到线上预约挂号
 void test_sign_in_on_line() {
-    for(int i = 0; i < ON_LINE_SIZE - 1; i++) {
-        // 先把线上的内容复制到签到队列
-        sign_up_queue[sign_up_rear].number = on_line_queue[i].number;
-
-        // 分配内存！！！
-        sign_up_queue[sign_up_rear].name = malloc(strlen(on_line_queue[i].name) + 1);
-        sign_up_queue[sign_up_rear].admission = malloc(strlen(on_line_queue[i].admission) + 1);
-
-        // 复制
-        strcpy(sign_up_queue[sign_up_rear].name, on_line_queue[i].name);
-        strcpy(sign_up_queue[sign_up_rear].admission, on_line_queue[i].admission);
-
-        sign_up_queue[sign_up_rear].sub = 0;
-
-        // 队尾移动
-        sign_up_rear = (sign_up_rear + 1) % ON_LINE_SIZE;
-    }
+    sign_in_on_line(5, 0);
+    sign_in_on_line(7, 1);
+    sign_in_on_line(6, 0);
+    sign_in_on_line(1, 1);
+    sign_in_on_line(8, 0);
+    sign_in_on_line(2, 1);
+    sign_in_on_line(3, 0);
+    sign_in_on_line(4, 1);
 }
 
 //打印签到队列

@@ -12,10 +12,10 @@ void choice(){
     init_all_off_line_queue() ;
 
     test_add_on_line();
-    // test_sign_in_on_line();
+    test_sign_in_on_line();
     while (1) {
         menu_printf_all();
-        merge_queues();//每次进入选择界面都将线下排队和签到队列合并
+        // merge_queues();//每次进入选择界面都将线下排队和签到队列合并
         printf("请输入您的选择：");
         scanf("%d", &choice);
         switch (choice) {
@@ -31,17 +31,20 @@ void choice(){
                 menu_printf_sign_in();
                 break;
             case 4:
-                //显示总体排队情况
-                printf_overall_queue();
+                //显示各诊室排队情况
                 // print_sign_up_queue();//测试打印签到队列
                 break;
             case 5:
+                //开始排队界面
+                printf_overall_queue();
+                break;
+            case 6:
                 //叫号
                 menu_printf_call_number();
                 break;
-            case 6:
+            case 7:
                 free_admission_queue();
-                printf("感谢使用医院挂号系统！再见！\n");
+                printf("==============感谢使用医院挂号系统！再见！=================\n");
                 exit(0);
             default:
                 printf("无效的选择，请重新输入！\n");
