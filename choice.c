@@ -11,7 +11,7 @@ void choice(){
     init_sign_up_queue();
     init_all_off_line_queue() ;
 
-    // test_add_on_line();
+    test_add_on_line();
     // test_sign_in_on_line();
     while (1) {
         menu_printf_all();

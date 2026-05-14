@@ -3,23 +3,14 @@
 
 //测试添加线上预约挂号信息
 void test_add_on_line() {
-    for(int i = 0; i < ON_LINE_SIZE; i++) {
-        char name[50];
-        sprintf(name, "患者%d", i + 1);
-
-        // 分配内存！！！这是你最缺的一步
-        on_line_queue[i].name = malloc(strlen(name) + 1);
-        on_line_queue[i].admission = malloc(strlen("a1") + 1);
-        on_line_queue[i].time = malloc(strlen("2024-06-01 10:00") + 1);
-
-        // 复制字符串
-        strcpy(on_line_queue[i].name, name);
-        strcpy(on_line_queue[i].admission, "a1");
-        strcpy(on_line_queue[i].time, "2024-06-01 10:00");
-
-        on_line_queue[i].number = i + 1;
-        on_line_queue[i].tag = 0;
-    }
+    add_on_line(1, "张三", "内科", "2024-06-01 09:00");
+    add_on_line(2, "李四", "外科", "2024-06-01 10:00");
+    add_on_line(3, "王五", "儿科", "2024-06-01 11:00");
+    add_on_line(4, "赵六", "妇科", "2024-06-01 13:00");
+    add_on_line(5, "钱七", "眼科", "2024-06-01 14:00");
+    add_on_line(6, "孙八", "耳鼻喉科", "2024-06-01 15:00");
+    add_on_line(7, "周九", "口腔科", "2024-06-01 16:00");
+    add_on_line(8, "吴十", "皮肤科", "2024-06-01 17:00");
 }
 //测试签到线上预约挂号
 void test_sign_in_on_line() {
