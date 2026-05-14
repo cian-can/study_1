@@ -85,35 +85,38 @@ bool sign_in_on_line(int number, int sub)
     return true; // 签到成功
 }
 
-//建堆
-void creat(int *ans, int root, int len)
+//建堆建最小堆
+void creat( Person *queue, int len , int root)
 {
     int child;
-    int temp = ans[root];
-    child = root * 2;
+    Person temp = queue[root];
+    int child = 2 * root;
     while (child <= len)
     {
-        if (child < len && ans[child] < ans[child + 1])
+        if (child < len && queue[child].number > queue[child + 1].number)
         {
             child++;
         }
-        if (temp > ans[child])
+        if (temp.number <= queue[child].number)
         {
             break;
         }
-        ans[child / 2] = ans[child];
-        child *= 2;
+        queue[child/2] = queue[child];
+        child = 2 * root;
     }
-    ans[child / 2] = temp;
+    queue[root] = temp;
 }
 
 // 堆排序将签到队列按照大小顺序排序
 void heap_sort_sign_up_queue(Person *sign_up_queue, int size)
 {
-    // 构建最大堆
+    // 构建最小堆
+    if(size <= 1) {
+        return; // 不需要排序
+    }
     for (int i = size / 2; i > 0; i--)
     {
-        creat((int *)sign_up_queue, i, size);
+        creat(sign_up_queue, i, size);
     }
     for (int i = size; i > 1; i--)
     {
@@ -121,6 +124,6 @@ void heap_sort_sign_up_queue(Person *sign_up_queue, int size)
         Person temp = sign_up_queue[1];
         sign_up_queue[1] = sign_up_queue[i];
         sign_up_queue[i] = temp;
-        creat((int *)sign_up_queue, 1, i - 1);
+        creat(sign_up_queue, 1, i - 1);
     }
 }
