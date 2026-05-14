@@ -1,18 +1,19 @@
 #include "app.h"
 //打印开始选择界面
 void menu_printf_all(){
-    printf("欢迎使用医院挂号系统！\n");
+    printf("=============欢迎使用医院挂号系统=============\n");
     printf("1. 线上预约挂号\n");
     printf("2. 线下排队挂号\n");
     printf("3. 签到\n");
-    printf("4. 显示总体排队情况\n");
-    printf("5. 叫号\n");
-    printf("6. 退出系统\n");
+    printf("4. 显示各诊室排队情况\n");
+    printf("5. 开始排队\n");
+    printf("6. 叫号\n");
+    printf("7. 退出系统\n");
 }
 
 //打印线上预约界面
 void menu_printf_on_line(){
-    printf("线上预约挂号\n");
+    printf("===========线上预约挂号=============\n");
     printf("请输入患者姓名：");
     char name[50];
     scanf("%s", name);
@@ -51,7 +52,7 @@ void menu_printf_on_line(){
     printf("当前时间：%d年%d月%d日 %d点%d分\n", tm_now->tm_year + 1900, tm_now->tm_mon + 1, tm_now->tm_mday, tm_now->tm_hour, tm_now->tm_min);
     if(find_empty_on_line() == -1) 
     {
-        printf("预约已满\n"); return;
+        printf("===========预约已满============\n"); return;
     }
     else
     {
@@ -78,15 +79,15 @@ else if(number >10 ){
         printf("%s\n", aim_time);
     }
     else{
-        printf("预约失败\n");
+        printf("===========预约失败============\n");
     }
     add_on_line(number + 1, name, admission, aim_time);
-    printf("预约成功！您的取号顺序是：%d\n", number + 1);
+    printf("===========预约成功！您的取号顺序是：%d============\n", number + 1);
 }
 
 //线下排队界面
 void menu_printf_off_line(){
-    printf("线下排队挂号\n");
+    printf("===========线下排队挂号=============\n");
     printf("请输入患者姓名：");
     char name[50];
     scanf("%s", name);
@@ -123,12 +124,12 @@ void menu_printf_off_line(){
     printf("需要复诊请输入1，不需要复诊请输入0：");
     scanf("%d", &sub);
     add_off_line(off_line_rear + 1, name, admission, sub);
-    printf("挂号成功！您的取号顺序是：%d\n", off_line_rear);
+    printf("===========挂号成功！您的取号顺序是：%d============\n", off_line_rear);
 }
 
 //签到选项
 void menu_printf_sign_in(){
-    printf("签到界面\n");
+    printf("===========签到界面=============\n");
     printf("请输入您的取号顺序：");
     int number;
     scanf("%d", &number);
@@ -148,10 +149,10 @@ void menu_printf_sign_in(){
     int sub;
     scanf("%d", &sub);
     if(!sign_in_on_line(number,sub)) {
-        printf("你已经签到过了！\n");
+        printf("===========你已经签到过了！============\n");
         return;
     }
-    printf("签到成功！请等待叫号！\n");
+    printf("===========签到成功！请等待叫号！============\n");
     //添加一个功能：每次签到都将患者加到排队队列中
 }
 
@@ -162,7 +163,7 @@ void printf_overall_queue(){
     merge_queues();
     // heap_sort_sign_up_queue(all_off_line_queue, (all_off_line_rear - all_off_line_front + OFF_LINE_SIZE) % OFF_LINE_SIZE);//每次显示总体排队情况都重新排序
     printf("当前排队人数：%d\n", (all_off_line_rear - all_off_line_front + OFF_LINE_SIZE) % OFF_LINE_SIZE);
-    printf("排队详情：\n");
+    printf("=================排队详情：===============\n");
     int index = all_off_line_front;
     while (index != all_off_line_rear) {
         printf("取号顺序：%d，姓名：%s，科室：%s，是否需要复诊：%s\n",
@@ -176,6 +177,6 @@ void printf_overall_queue(){
 
 //叫号界面
 void menu_printf_call_number(){
-    printf("叫号界面\n");
+    printf("===========叫号界面=============\n");
     call_number();
 }
