@@ -18,21 +18,21 @@ void init_admission_queue() {
     admission_queue[2]->name = "儿科";
     admission_queue[3]->name = "妇科";
     admission_queue[4]->name = "眼科";
-    admission_queue[5]->name = "耳鼻喉科";
-    admission_queue[6]->name = "口腔科";
-    admission_queue[7]->name = "皮肤科";
-    admission_queue[8]->name = "骨科";
-    admission_queue[9]->name = "神经科";
-    admission_queue[10]->name = "心血管科";
-    admission_queue[11]->name = "肿瘤科";
-    admission_queue[12]->name = "消化科";
-    admission_queue[13]->name = "内分泌科";
-    admission_queue[14]->name = "肾内科";
-    admission_queue[15]->name = "血液科";
-    admission_queue[16]->name = "呼吸科";
-    admission_queue[17]->name = "精神科";
-    admission_queue[18]->name = "康复科";
-    admission_queue[19]->name = "急诊科";
+    // admission_queue[5]->name = "耳鼻喉科";
+    // admission_queue[6]->name = "口腔科";
+    // admission_queue[7]->name = "皮肤科";
+    // admission_queue[8]->name = "骨科";
+    // admission_queue[9]->name = "神经科";
+    // admission_queue[10]->name = "心血管科";
+    // admission_queue[11]->name = "肿瘤科";
+    // admission_queue[12]->name = "消化科";
+    // admission_queue[13]->name = "内分泌科";
+    // admission_queue[14]->name = "肾内科";
+    // admission_queue[15]->name = "血液科";
+    // admission_queue[16]->name = "呼吸科";
+    // admission_queue[17]->name = "精神科";
+    // admission_queue[18]->name = "康复科";
+    // admission_queue[19]->name = "急诊科";
 }
 
 //打印就诊科室
@@ -55,75 +55,103 @@ int find_admission(char *admission) {
 
 //将患者信息添加到对应科室的链表中，并且更新预约人数和叫号顺序
 void add_admission_queue(Person *person) {
+
+    if (!person || !person->admission) return;
     int index = find_admission(person->admission);
     //还要修改，等复诊功能完善后再修改
     if (index == -1) {
         printf("没有找到对应科室，无法添加患者信息！\n");
         return;
     }
-    Admission *admission = admission_queue[index];
-    if (admission->count >= admission_number_per_day) {
-        printf("该科室预约已满，无法添加患者信息！\n");
+    
+    Admission *ad = admission_queue[index];
+    if (ad->count >= admission_number_per_day) {
+        printf("%s 今日号源已满！\n", ad->name);
         return;
     }
-    if (admission->head == NULL) {
-        admission->head = person;
-        admission->tail = person;
+
+    // 新建节点（避免原队列被释放）
+    Person *new_p = (Person*)malloc(sizeof(Person));
+    new_p->number = person->number;
+    new_p->name = strdup(person->name);
+    new_p->admission = strdup(person->admission);
+    new_p->sub = person->sub;
+    new_p->if_sub = person->if_sub;
+    new_p->next = NULL;
+
+    if (ad->head == NULL) {
+        ad->head = new_p;
+        ad->tail = new_p;
     } else {
-        admission->tail->next = person;
-        admission->tail = person;
+        ad->tail->next = new_p;
+        ad->tail = new_p;
     }
-    admission->count++;
-    admission->call_number++;
+
+    ad->count++;
+    if (ad->call_number == 0) ad->call_number = 1;
 }
 
-//将合并后的队列添加到add_admission_queue函数中
-void add_pesions_admisssion_queue(){
-    while(1)
-    {
-        if(all_off_line_front != all_off_line_rear) //合并后的队列不为空
-        {
+//把合并队列批量加入科室
+void add_patients_admission_queue() {
+    while (1) {
+        if (all_off_line_front != all_off_line_rear) {
             add_admission_queue(&all_off_line_queue[all_off_line_front]);
-            all_off_line_front = (all_off_line_front + 1) % OFF_LINE_SIZE;
-        }
-        else
-        {
-            break; //合并后的队列为空，添加完成
+            all_off_line_front = (all_off_line_front + 1) % MAX_ALL_NUMBER;
+        } else {
+            break;
         }
     }
 }
 
 //显示总体排队情况
 void display_queue_status() {
-    printf("总体排队情况：\n");
+      printf("\n===== 各科室排队情况 =====\n");
     for (int i = 0; i < ADMISSION_SIZE; i++) {
-        printf("%s科室：%d人排队，当前叫号顺序：%d\n", admission_queue[i]->name, admission_queue[i]->count, admission_queue[i]->call_number);
+        Admission *ad = admission_queue[i];
+        printf("%-10s : 排队 %2d 人 | 当前叫号 %d\n",
+               ad->name, ad->count, ad->call_number);
     }
 }
 
 //叫号
 void call_number() {
+        int called = 0;
     for (int i = 0; i < ADMISSION_SIZE; i++) {
-        if (admission_queue[i]->count > 0) {
-            admission_queue[i]->call_number++;
-            printf("请%s科室的患者，取号顺序为%d的%s前来就诊！\n", admission_queue[i]->name, admission_queue[i]->call_number, admission_queue[i]->head->name);
-            //将叫号的患者从链表中移除
-            Person *temp = admission_queue[i]->head;
-            admission_queue[i]->head = admission_queue[i]->head->next;
-            free(temp);
-            admission_queue[i]->count--;
+        Admission *ad = admission_queue[i];
+        if (ad->count > 0) {
+            Person *p = ad->head;
+            printf("\n【叫号】%s -> 当前号码：%d | 患者：%s\n",
+                   ad->name, ad->call_number, p->name);
+
+            // 移除链表头
+            ad->head = ad->head->next;
+            if (ad->head == NULL) ad->tail = NULL;
+
+            // 释放节点内存
+            free(p->name);
+            free(p->admission);
+            free(p);
+
+            ad->count--;
+            ad->call_number++;
+            called = 1;
         }
+    }
+    if (!called) {
+        printf("\n所有科室暂无排队患者！\n");
     }
 }
 
 //释放内存
 void free_admission_queue() {
-    for (int i = 0; i < ADMISSION_SIZE; i++) {
-        Person *current = admission_queue[i]->head;
-        while (current != NULL) {
-            Person *temp = current;
-            current = current->next;
-            free(temp);
+   for (int i = 0; i < ADMISSION_SIZE; i++) {
+        Person *cur = admission_queue[i]->head;
+        while (cur != NULL) {
+            Person *tmp = cur;
+            cur = cur->next;
+            free(tmp->name);
+            free(tmp->admission);
+            free(tmp);
         }
         free(admission_queue[i]);
     }

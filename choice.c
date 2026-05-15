@@ -10,6 +10,7 @@ void choice(){
     init_off_line_queue();
     init_sign_up_queue();
     init_all_off_line_queue() ;
+    init_sub_queue();
 
     test_add_on_line();
     test_sign_in_on_line();
@@ -31,8 +32,8 @@ void choice(){
                 menu_printf_sign_in();
                 break;
             case 4:
-                //显示各诊室排队情况
-                // print_sign_up_queue();//测试打印签到队列
+                //显示各诊室排队情况界面
+                menu_printf_queue_status();
                 break;
             case 5:
                 //开始排队界面
