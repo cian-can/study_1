@@ -67,7 +67,7 @@ void merge_queues() {
     //合并前先清空合并队列
     all_off_line_front = 0;
     all_off_line_rear = 0;
-
+    printf("1\n");
         // 安全合并（不破坏原队列）
     int temp_off = off_line_front;
     int temp_sign = sign_up_front;

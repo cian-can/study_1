@@ -123,10 +123,18 @@ void menu_printf_off_line(){
     int sub;
     printf("需要复诊请输入1，不需要复诊请输入0：");
     scanf("%d", &sub);
+    int seq = off_line_rear + 1;
     if(sub ==1)
     {
-        add_sub_queue(&(Person){.number = off_line_rear + 1, .name = strdup(name), .admission = strdup(admission), .sub = sub, .if_sub = 1, .next = NULL});
-        printf("===========挂号成功！您的取号顺序是：%d============\n", sub_rear);
+         Person p;
+        p.number = seq;
+        p.name = strdup(name);
+        p.admission = strdup(admission);
+        p.sub = 1;
+        p.if_sub = 1;
+        p.next = NULL;
+        add_sub_queue(&p);
+        printf("===========复诊挂号成功！顺序：%d============\n", seq);
         return;
     }
     add_off_line(off_line_rear + 1, name, admission);
@@ -171,13 +179,21 @@ void printf_overall_queue(){
     printf("当前排队人数：%d\n", len);
     printf("=================排队详情：===============\n");
     int index = all_off_line_front;
-    for (int i = 0; i < len; i++) {
-        printf("取号顺序：%d，姓名：%s，科室：%s，是否复诊：%s\n",
+     for(int i=0; i<len && i<MAX_ALL_NUMBER; i++){
+        printf("顺序：%d | 姓名：%s | 科室：%s | 复诊：%s\n",
                all_off_line_queue[i].number,
                all_off_line_queue[i].name,
                all_off_line_queue[i].admission,
-               all_off_line_queue[i].sub ? "是" : "否");
+               all_off_line_queue[i].if_sub ? "是" : "否");
     }
+}
+
+//显示各科室排队情况
+void menu_printf_queue_status(){
+    printf("\n=========== 科室排队实时状态 ============\n");
+    merge_queues();
+    add_patients_admission_queue();
+    display_queue_status();
 }
 
 //叫号界面

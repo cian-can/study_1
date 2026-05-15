@@ -8,10 +8,10 @@
 #include <stdbool.h>
 #include <time.h>
 
-#define ON_LINE_SIZE 20  //线上预约挂号数量
+#define ON_LINE_SIZE 40  //线上预约挂号数量
 #define OFF_LINE_SIZE 40 //线下排队数量
 #define MAX_ALL_NUMBER 80 //合并后最大排队数量
-#define ADMISSION_SIZE 20 //就诊科室数量
+#define ADMISSION_SIZE 5 //就诊科室数量
 #define admission_number_per_day 20 //每天每个科室的预约数量
 
 //定义结构体
@@ -62,13 +62,14 @@ void menu_printf_off_line();//打印线下排队界面
 void choice();//选择界面
 void printf_overall_queue();//显示总体排队情况界面
 void menu_printf_call_number();//打印叫号界面
+void menu_printf_queue_status();//显示各科室排队情况界面
 
 //admissions.c
 void print_all_admissions() ;//打印就诊科室
 void init_admission_queue() ;//初始化就诊科室预约显示
 int find_admission(char *admission) ;//查看有没有对应科室
 void add_admission_queue(Person *person) ;//将患者信息添加到对应科室的链表中，并且更新预约人数和叫号顺序
-void add_pesions_admisssion_queue() ;//将合并后的队列添加到add_admission_queue函数中
+void add_patients_admission_queue() ;//将合并后的队列添加到add_admission_queue函数中
 void display_queue_status();//显示总体排队情况
 void call_number();//叫号
 void free_admission_queue() ;//释放就诊科室预约显示的内存
