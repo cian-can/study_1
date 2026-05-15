@@ -14,14 +14,14 @@ void test_add_on_line() {
 }
 //测试签到线上预约挂号
 void test_sign_in_on_line() {
-    sign_in_on_line(5, 0);
-    sign_in_on_line(7, 1);
-    sign_in_on_line(6, 0);
-    sign_in_on_line(1, 1);
-    sign_in_on_line(8, 0);
-    sign_in_on_line(2, 1);
-    sign_in_on_line(3, 0);
-    sign_in_on_line(4, 1);
+    sign_in_on_line(7);
+    sign_in_on_line(6);
+    sign_in_on_line(5);
+    sign_in_on_line(1);
+    sign_in_on_line(8);
+    sign_in_on_line(2);
+    sign_in_on_line(3);
+    sign_in_on_line(4);
 }
 
 //打印签到队列

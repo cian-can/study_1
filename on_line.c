@@ -60,7 +60,7 @@ int find_empty_on_line()
     return -1; // 没有空位
 }
 // 签到线上预约挂号
-bool sign_in_on_line(int number, int sub)
+bool sign_in_on_line(int number)
 {
     for (int i = 0; i < ON_LINE_SIZE; i++)
     {
@@ -74,7 +74,7 @@ bool sign_in_on_line(int number, int sub)
             sign_up_queue[sign_up_rear].number = on_line_queue[i].number;
             sign_up_queue[sign_up_rear].name = strdup(on_line_queue[i].name);
             sign_up_queue[sign_up_rear].admission = strdup(on_line_queue[i].admission);
-            sign_up_queue[sign_up_rear].sub = sub;  // 设置是否需要复诊
+            sign_up_queue[sign_up_rear].sub = 0;
             sign_up_queue[sign_up_rear].if_sub = 0; // 默认不是复诊排队
             sign_up_queue[sign_up_rear].next = NULL;
             sign_up_rear = (sign_up_rear + 1) % ON_LINE_SIZE; // 循环队列

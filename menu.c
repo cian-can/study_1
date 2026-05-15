@@ -123,7 +123,13 @@ void menu_printf_off_line(){
     int sub;
     printf("需要复诊请输入1，不需要复诊请输入0：");
     scanf("%d", &sub);
-    add_off_line(off_line_rear + 1, name, admission, sub);
+    if(sub ==1)
+    {
+        add_sub_queue(&(Person){.number = off_line_rear + 1, .name = strdup(name), .admission = strdup(admission), .sub = sub, .if_sub = 1, .next = NULL});
+        printf("===========挂号成功！您的取号顺序是：%d============\n", sub_rear);
+        return;
+    }
+    add_off_line(off_line_rear + 1, name, admission);
     printf("===========挂号成功！您的取号顺序是：%d============\n", off_line_rear);
 }
 
@@ -148,7 +154,7 @@ void menu_printf_sign_in(){
     printf("需要复诊请输入1，不需要复诊请输入0：");
     int sub;
     scanf("%d", &sub);
-    if(!sign_in_on_line(number,sub)) {
+    if(!sign_in_on_line(number)) {
         printf("===========你已经签到过了！============\n");
         return;
     }

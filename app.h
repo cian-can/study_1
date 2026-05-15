@@ -10,6 +10,7 @@
 
 #define ON_LINE_SIZE 20  //线上预约挂号数量
 #define OFF_LINE_SIZE 40 //线下排队数量
+#define MAX_ALL_NUMBER 80 //合并后最大排队数量
 #define ADMISSION_SIZE 20 //就诊科室数量
 #define admission_number_per_day 20 //每天每个科室的预约数量
 
@@ -47,7 +48,7 @@ typedef struct admission
 //on_line.c
 void init_on_line_queue();//初始化线上预约挂号数组
 void add_on_line(int number, char *name, char *admission, char *time);//添加线上预约挂号信息
-bool sign_in_on_line(int number, int sub);//签到线上预约挂号
+bool sign_in_on_line(int number);//签到线上预约挂号
 void creat( Person *queue, int len , int root);//建堆
 void heap_sort_sign_up_queue(Person *sign_up_queue, int size);//堆排序
 int find_empty_on_line() ;//查看数组未编号位置
@@ -76,7 +77,10 @@ void free_admission_queue() ;//释放就诊科室预约显示的内存
 void merge_queues();//线下排队和签到队列合并
 void init_off_line_queue() ;//初始化线下排队队列
 void init_all_off_line_queue() ;//初始化合并队列
-void add_off_line(int number, char *name, char *admission, int sub) ;//线下排队挂号
+void init_sub_queue() ;//初始化复诊排队队列
+void add_off_line(int number, char *name, char *admission) ;//线下排队挂号
+void add_sub_queue(Person *person) ;//添加复诊排队信息
+
 
 //test.c
 void test_add_on_line() ;//测试函数
@@ -91,7 +95,9 @@ extern int sign_up_front, sign_up_rear;
 extern Person  off_line_queue[OFF_LINE_SIZE];//线下排队队列
 extern int off_line_front, off_line_rear;
 extern Admission *admission_queue[ADMISSION_SIZE];//就诊科室预约显示
-extern Person all_off_line_queue[OFF_LINE_SIZE];//线下排队和签到合并后的队列
+extern Person all_off_line_queue[MAX_ALL_NUMBER];//线下排队和签到合并后的队列
 extern int all_off_line_front, all_off_line_rear;//合并后队头和队尾
+extern Person sub_queue[OFF_LINE_SIZE];//复诊排队队列
+extern int sub_front, sub_rear;//复诊排队队头和队尾
 
 #endif //APP.H
