@@ -49,7 +49,12 @@ void menu_printf_on_line(){
     time_t now = time(NULL);
     struct tm *tm_now = localtime(&now);
     int number = 0;
-    printf("当前时间：%d年%d月%d日 %d点%d分\n", tm_now->tm_year + 1900, tm_now->tm_mon + 1, tm_now->tm_mday, tm_now->tm_hour, tm_now->tm_min);
+    printf("当前时间：%d年%d月%d日 %d点%d分\n", 
+        tm_now->tm_year + 1900,
+        tm_now->tm_mon + 1,
+        tm_now->tm_mday,
+        tm_now->tm_hour,
+        tm_now->tm_min);
     if(find_empty_on_line() == -1) 
     {
         printf("===========预约已满============\n"); return;
