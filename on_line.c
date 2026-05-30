@@ -57,6 +57,7 @@ int find_empty_on_line()
             return i; // 返回第一个空位的索引
         }
     }
+
     return -1; // 没有空位
 }
 // 签到线上预约挂号

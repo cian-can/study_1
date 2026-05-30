@@ -64,43 +64,39 @@ void add_off_line(int number, char *name, char *admission) {
 //线下排队和签到队列合并
 void merge_queues() {
 
-    //合并前先清空合并队列
-    all_off_line_front = 0;
-    all_off_line_rear = 0;
-        // 安全合并（不破坏原队列）
-    int temp_off = off_line_front;
-    int temp_sign = sign_up_front;
-    int temp_sub = sub_front;
     while(1)
     {
-        if (temp_sub != sub_rear) {
-            all_off_line_queue[all_off_line_rear] = sub_queue[temp_sub];
-            all_off_line_queue[all_off_line_rear].name = strdup(sub_queue[temp_sub].name);
-            all_off_line_queue[all_off_line_rear].admission = strdup(sub_queue[temp_sub].admission);
-            all_off_line_queue[all_off_line_rear].sub = sub_queue[temp_sub].sub;
-            all_off_line_queue[all_off_line_rear].if_sub = sub_queue[temp_sub].if_sub;
-            all_off_line_rear++;
-            temp_sub = (temp_sub + 1) % OFF_LINE_SIZE;
+        if (sub_front != sub_rear) {
+            all_off_line_queue[all_off_line_rear] = sub_queue[sub_front];
+            all_off_line_queue[all_off_line_rear].name = strdup(sub_queue[sub_front].name);
+            all_off_line_queue[all_off_line_rear].admission = strdup(sub_queue[sub_front].admission);
+            all_off_line_queue[all_off_line_rear].sub = sub_queue[sub_front].sub;
+            all_off_line_queue[all_off_line_rear].if_sub = sub_queue[sub_front].if_sub;
+            sub_front = (sub_front + 1) % OFF_LINE_SIZE;
         }
-        else if (temp_off != off_line_rear) {
-            all_off_line_queue[all_off_line_rear] = off_line_queue[temp_off];
-            all_off_line_queue[all_off_line_rear].name = strdup(off_line_queue[temp_off].name);
-            all_off_line_queue[all_off_line_rear].admission = strdup(off_line_queue[temp_off].admission);
-            all_off_line_rear++;
-            temp_off = (temp_off + 1) % OFF_LINE_SIZE;
+        else if (off_line_front != off_line_rear) {
+            all_off_line_queue[all_off_line_rear] = off_line_queue[off_line_front];
+            all_off_line_queue[all_off_line_rear].name = strdup(off_line_queue[off_line_front].name);
+            all_off_line_queue[all_off_line_rear].admission = strdup(off_line_queue[off_line_front].admission);
+            off_line_front = (off_line_front + 1) % OFF_LINE_SIZE;
         }
-        else if (temp_sign != sign_up_rear) {
-            all_off_line_queue[all_off_line_rear].number = sign_up_queue[temp_sign].number;
-            all_off_line_queue[all_off_line_rear].name = strdup(sign_up_queue[temp_sign].name);
-            all_off_line_queue[all_off_line_rear].admission = strdup(sign_up_queue[temp_sign].admission);
-            all_off_line_queue[all_off_line_rear].sub = sign_up_queue[temp_sign].sub;
-            all_off_line_rear++;
-            temp_sign = (temp_sign + 1) % ON_LINE_SIZE;
+        else if (sign_up_front != sign_up_rear) {
+            all_off_line_queue[all_off_line_rear].number = sign_up_queue[sign_up_front].number;
+            all_off_line_queue[all_off_line_rear].name = strdup(sign_up_queue[sign_up_front].name);
+            all_off_line_queue[all_off_line_rear].admission = strdup(sign_up_queue[sign_up_front].admission);
+            all_off_line_queue[all_off_line_rear].sub = sign_up_queue[sign_up_front].sub;
+            sign_up_front = (sign_up_front + 1) % ON_LINE_SIZE;
         }
         else break;
+        all_off_line_rear = (all_off_line_rear + 1) % MAX_ALL_NUMBER;
     }
        // 排序（用临时数组适配1-based堆排序）
-    int len = all_off_line_rear;
+       int len;
+       if(all_off_line_rear >= all_off_line_front)
+       {
+           len = (all_off_line_rear - all_off_line_front);
+       }
+       else len = (all_off_line_rear - all_off_line_front + MAX_ALL_NUMBER);
     if (len <= 0) return;
 
     Person temp[MAX_ALL_NUMBER];
