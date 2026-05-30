@@ -82,23 +82,7 @@ bool sign_in_on_line(int number)
             break;
         }
     }
-    //  // 安全排序
-    // int len = (sign_up_rear - sign_up_front + ON_LINE_SIZE) % ON_LINE_SIZE;
-    // if (len <= 0) return true;
 
-    // Person temp[ON_LINE_SIZE];
-    // int idx = sign_up_front;
-    // for (int i = 1; i <= len; i++) {
-    //     temp[i] = sign_up_queue[idx];
-    //     idx = (idx + 1) % ON_LINE_SIZE;
-    // }
-    // heap_sort_sign_up_queue(temp, len);
-
-    // idx = sign_up_front;
-    // for (int i = 1; i <= len; i++) {
-    //     sign_up_queue[idx] = temp[i];
-    //     idx = (idx + 1) % ON_LINE_SIZE;
-    // }
     return true; // 签到成功
 }
 

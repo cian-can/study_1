@@ -58,7 +58,6 @@ void add_admission_queue(Person *person) {
 
     if (!person || !person->admission) return;
     int index = find_admission(person->admission);
-    //还要修改，等复诊功能完善后再修改
     if (index == -1) {
         printf("没有找到对应科室，无法添加患者信息！\n");
         return;
